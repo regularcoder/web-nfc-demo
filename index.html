@@ -1,21 +1,31 @@
+<!DOCTYPE html>
 <script>
+  function writeLog(line) {
+    const logDiv = document.getElementById("log");
+
+    logDiv.appendChild(document.createTextNode("> " + line));
+    logDiv.appendChild(document.createElement("br"));
+  }
+
   async function startScanning() {
     if (!("NDEFReader" in window)) {
-      alert("NDEFReader unavailable!");
+      writeLog("NDEFReader unavailable!");
     } else {
       const ndef = new NDEFReader();
       await ndef.scan();
-      console.log("> Scan started");
+      writeLog("Scan started");
 
       ndef.addEventListener("readingerror", () => {
-        alert("Argh! Cannot read data from the NFC tag. Try another one?");
+        writeLog("Cannot read data from the NFC tag. Try another one?");
       });
 
       ndef.addEventListener("reading", ({ message, serialNumber }) => {
-        alert("Hello Elizabeth!");
+        writeLog("Hello Elizabeth!");
       });
     }
   }
 
-  window.onLoad = startScanning;
+  window.onload = startScanning;
 </script>
+
+<div id="log"></div>
