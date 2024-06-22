@@ -11,17 +11,23 @@
     if (!("NDEFReader" in window)) {
       writeLog("NDEFReader unavailable!");
     } else {
-      const ndef = new NDEFReader();
-      await ndef.scan();
-      writeLog("Scan started");
+      try {
+        writeLog("About to start scanning...");
 
-      ndef.addEventListener("readingerror", () => {
-        writeLog("Cannot read data from the NFC tag. Try another one?");
-      });
+        const ndef = new NDEFReader();
+        await ndef.scan();
+        writeLog("Scan started");
 
-      ndef.addEventListener("reading", ({ message, serialNumber }) => {
-        writeLog("Hello Elizabeth!");
-      });
+        ndef.addEventListener("readingerror", () => {
+          writeLog("Cannot read data from the NFC tag. Try another one?");
+        });
+
+        ndef.addEventListener("reading", ({ message, serialNumber }) => {
+          writeLog("Hello Elizabeth!");
+        });
+      } catch(ex) {
+        writeLog("Error " + ex);
+      }
     }
   }
 
