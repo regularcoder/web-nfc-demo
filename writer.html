@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web NFC demo</title>
+</head>
+<script>
+    function writeLog(line) {
+        const logDiv = document.getElementById("log");
+
+        logDiv.appendChild(document.createTextNode("> " + line));
+        logDiv.appendChild(document.createElement("br"));
+    }
+
+    async function writeMessage() {
+        if (!("NDEFReader" in window)) {
+            writeLog("NDEFReader unavailable!");
+        } else {
+            try {
+                writeLog("About to start writing...");
+
+                const ndef = new NDEFReader();
+
+                const messageToWriteTextArea = document.getElementById("messageToWrite");
+                ndef.write(messageToWriteTextArea.value);
+                alert(messageToWriteTextArea.value);
+
+                writeLog("Message written");
+            } catch (ex) {
+                writeLog("Error " + ex);
+            }
+        }
+    }
+</script>
+<p>
+    <a href="index.html">Home</a>
+    <a href="reader.html">Reader</a>
+    <a href="writer.html">Writer</a>
+</p>
+<label for="messageToWrite">Message to write</label><br/>
+<textarea id="messageToWrite" rows="10" cols="50"></textarea><br/>
+<button onclick="writeMessage()">Write message</button>
+<div id="log"></div>
+</html>

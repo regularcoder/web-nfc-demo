@@ -1,42 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Web NFC demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web NFC demo</title>
 </head>
-<script>
-  function writeLog(line) {
-    const logDiv = document.getElementById("log");
-
-    logDiv.appendChild(document.createTextNode("> " + line));
-    logDiv.appendChild(document.createElement("br"));
-  }
-
-  async function startScanning() {
-    if (!("NDEFReader" in window)) {
-      writeLog("NDEFReader unavailable!");
-    } else {
-      try {
-        writeLog("About to start scanning...");
-
-        const ndef = new NDEFReader();
-        await ndef.scan();
-        writeLog("Scan started");
-
-        ndef.addEventListener("readingerror", () => {
-          writeLog("Cannot read data from the NFC tag. Try another one?");
-        });
-
-        ndef.addEventListener("reading", ({ message, serialNumber }) => {
-          alert("Hello Elizabeth!");
-        });
-      } catch(ex) {
-        writeLog("Error " + ex);
-      }
-    }
-  }
-</script>
-
-<button onclick="startScanning()">Start scanning</button>
-<div id="log"></div>
+<p>
+    <a href="index.html">Home</a>
+    <a href="reader.html">Reader</a>
+    <a href="writer.html">Writer</a>
+</p>
+</html>
