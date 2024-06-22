@@ -1,7 +1,21 @@
 <script>
-if (!("NDEFReader" in window)) {
-  alert("NDEFReader unavailable!");
-} else {
-  alert("NFC available!");
-}
+  async function startScanning() {
+    if (!("NDEFReader" in window)) {
+      alert("NDEFReader unavailable!");
+    } else {
+      const ndef = new NDEFReader();
+      await ndef.scan();
+      console.log("> Scan started");
+
+      ndef.addEventListener("readingerror", () => {
+        alert("Argh! Cannot read data from the NFC tag. Try another one?");
+      });
+
+      ndef.addEventListener("reading", ({ message, serialNumber }) => {
+        alert("Hello Elizabeth!");
+      });
+    }
+  }
+
+  window.onLoad = startScanning;
 </script>
