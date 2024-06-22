@@ -23,8 +23,7 @@
                 const ndef = new NDEFReader();
 
                 const messageToWriteTextArea = document.getElementById("messageToWrite");
-                ndef.write(messageToWriteTextArea.value);
-                alert(messageToWriteTextArea.value);
+                await ndef.write(messageToWriteTextArea.value);
 
                 writeLog("Message written");
             } catch (ex) {
