@@ -22,8 +22,11 @@
 
                 const ndef = new NDEFReader();
 
+                const recordTypeSelect = document.getElementById("recordType");
                 const messageToWriteTextArea = document.getElementById("messageToWrite");
                 await ndef.write(messageToWriteTextArea.value);
+
+                await ndef.write({records: [{recordType: recordTypeSelect.value, data: messageToWriteTextArea.value}]});
 
                 writeLog("Message written");
             } catch (ex) {
@@ -36,6 +39,12 @@
     <a href="index.html">Home</a>
     <a href="reader.html">Reader</a>
     <a href="writer.html">Writer</a>
+</p>
+<p>
+    <label for="recordType">Record type</label><select name="recordType" id="recordType">
+    <option value="text">text</option>
+    <option value="url">url</option>
+</select>
 </p>
 <label for="messageToWrite">Message to write</label><br/>
 <textarea id="messageToWrite" rows="10" cols="50"></textarea><br/>
